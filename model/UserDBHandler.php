@@ -39,7 +39,7 @@ class UserDBHandler {
      * @return bool true if the user is valid, false if invalid
      */
     public function userValidate(string $username, string $password) {
-        $query = $this->db->prepare("SELECT COUNT(username) FROM users WHERE username = ? AND password = ?");
+        $query = $this->db->prepare("SELECT COUNT(username) FROM users WHERE username = ? AND passwd = ?");
         $query->execute(array($username, $password));
 
         if($query->fetchColumn() > 0) {
