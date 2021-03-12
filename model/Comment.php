@@ -3,21 +3,21 @@ require_once __DIR__ . '/../global/ValidationException.php';
 
 class Comment {
     private string $id;
-    private string $value;
+    private string $content;
     private ?User $author;
     private ?Topic $topic;
 
     /**
      * Comment constructor.
      * @param string $id
-     * @param string $value
+     * @param string $content
      * @param ?User $author
      * @param ?Topic $topic
      */
-    public function __construct(string $id, string $value, ?User $author = null, ?Topic $topic = null)
+    public function __construct(string $id, string $content, ?User $author = null, ?Topic $topic = null)
     {
         $this->id = $id;
-        $this->value = $value;
+        $this->content = $content;
         $this->author = $author;
         $this->topic = $topic;
     }
@@ -41,17 +41,17 @@ class Comment {
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getContent(): string
     {
-        return $this->value;
+        return $this->content;
     }
 
     /**
-     * @param string $value
+     * @param string $content
      */
-    public function setValue(string $value): void
+    public function setContent(string $content): void
     {
-        $this->value = $value;
+        $this->content = $content;
     }
 
     /**
@@ -92,8 +92,8 @@ class Comment {
      */
     public function commentValidation(): void {
         $errors = array();
-        if(mb_strlen(trim($this->getValue())) < 5) {
-            $errors['value'] = 'The comment is required. Minimum length is 5 character';
+        if(mb_strlen(trim($this->getContent())) < 5) {
+            $errors['content'] = 'The comment is required. Minimum length is 5 character';
         }
         if($this->author == null) {
             $errors['author'] = 'The author is required';
