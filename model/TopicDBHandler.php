@@ -28,7 +28,7 @@ class TopicDBHandler {
         $topicArray = array();
         foreach ($res as $topic) {
             $author = new User($topic['username']);
-            $topicArray[] = new Topic($topic['id'], $topic['title'], $topic['value'], $author);
+            $topicArray[] = new Topic($topic['id'], $topic['title'], $topic['content'], $author);
         }
         return $topicArray;
     }
@@ -45,7 +45,7 @@ class TopicDBHandler {
         $topic = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($topic != null) {
-            return new Topic($topic['id'], $topic['title'], $topic['value'], new User($topic['author']));
+            return new Topic($topic['id'], $topic['title'], $topic['content'], new User($topic['author']));
         }
         return null;
     }

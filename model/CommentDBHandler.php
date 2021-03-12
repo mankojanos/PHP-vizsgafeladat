@@ -20,8 +20,8 @@ class CommentDBHandler {
      * @throws PDOException if database error
      */
     public function save(Comment $comment): int {
-        $query = $this->db->prepare("INSERT INTO comments(value, author, topic) VALUES(?, ?, ?)");
-        $query->execute(array($comment->getValue(), $comment->getAuthor()->getUsername(), $comment->getTopic()->getId()));
+        $query = $this->db->prepare("INSERT INTO comments(content, author, topic) VALUES(?, ?, ?)");
+        $query->execute(array($comment->getContent(), $comment->getAuthor()->getUsername(), $comment->getTopic()->getId()));
         return $this->db->lastInsertId();
     }
 }
