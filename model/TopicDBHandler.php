@@ -75,4 +75,36 @@ class TopicDBHandler {
         }
         return null;
     }
+
+    /**
+     * Save topic to database
+     * @param Topic $topic topic to save
+     * @return int new topic id
+     * @throws PDOException if database error
+     */
+    public function save(Topic $topic): int {
+        $query = $this->db->prepare('INSERT INTO topics(title, content, author) VALUES (?, ?, ?)');
+        $query->execute(array($topic->getTitle(), $topic->getContent(), $topic->getAuthor()->getUsername()));
+        return $this->db->lastInsertId();
+    }
+
+    /**
+     * Update topic in database
+     * @param Topic $topic topic for update
+     * @throws PDOException if database error
+     */
+    public function update(Topic $topic): void {
+        $query = $this->db->prepare('UPDATE topics SET title=?, content=? WHERE id=?');
+        $query->execute(array($topic->getTitle(), $topic->getContent(), $topic->getId()));
+    }
+
+    /**
+     * Delete topic from database
+     * @param Topic $topic topic for delete
+     * @throws PDOException if database error
+     */
+    public function delete(Topic $topic): void {
+        $query = $this->db->prepare('DELETE FROM topics WHERE id=?');
+        $query->execute(array($topic->getId()));
+    }
 }
