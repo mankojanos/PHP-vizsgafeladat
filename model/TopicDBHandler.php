@@ -50,5 +50,29 @@ class TopicDBHandler {
         return null;
     }
 
+    /**
+     * Search topic base on id WITH comments
+     * @param string $topicId topic id
+     * @return Topic|null the topic, or null
+     * @throws PDOException if database error
+     */
+    public function idBaseSearchWithComment (string $topicId): ?Topic {
+        $query = $this->db->prepare("SELECT T.id AS 'topic.id', T.title AS 'topic.title', T.content AS 'topic.content', T.author AS 'topic.author', C.id AS 'comment.id', C.content AS 'comment.content', C.topic AS 'comment.topic', C.author AS 'comment.author' FROM topics as T LEFT OUTER JOIN comments C on T.id = C.topic WHERE T.id=?");
+        $query->execute(array($topicId));
+        $topicWithComments = $query->fetchAll(PDO::FETCH_ASSOC);
 
+        if(!empty($topicWithComments)) {
+            $topic = new Topic($topicWithComments[0]['topic.id'], $topicWithComments[0]['topic.title'], $topicWithComments[0]['topic.content'], new User($topicWithComments[0]['topic.author']));
+            $comments = array();
+            if($topicWithComments[0]['comment.id'] != null) {
+                foreach ($topicWithComments as $comment) {
+                    $comment = new Comment($comment['comment.id'], $comment['comment.content'], new User($comment['comment.author']), $topic );
+                    $comments[] = $comment;
+                }
+            }
+            $topic->setComments($comments);
+            return $topic;
+        }
+        return null;
+    }
 }
