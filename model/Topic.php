@@ -3,7 +3,7 @@ require_once __DIR__ . '/../global/ValidationException.php';
 class Topic {
     private string $id;
     private string $title;
-    private string $value;
+    private string $content;
     private ?User $author;
     private ?array $comments;
 
@@ -11,15 +11,15 @@ class Topic {
      * Topic constructor.
      * @param string $id
      * @param string $title
-     * @param string $value
+     * @param string $content
      * @param User|null $author
      * @param array|null $comments
      */
-    public function __construct(string $id = '', string $title = '', string $value = '', ?User $author = null, ?array $comments = null)
+    public function __construct(string $id = '', string $title = '', string $content = '', ?User $author = null, ?array $comments = null)
     {
         $this->id = $id;
         $this->title = $title;
-        $this->value = $value;
+        $this->content = $content;
         $this->author = $author;
         $this->comments = $comments;
     }
@@ -59,17 +59,17 @@ class Topic {
     /**
      * @return string
      */
-    public function getValue(): string
+    public function getContent(): string
     {
-        return $this->value;
+        return $this->content;
     }
 
     /**
-     * @param string $value
+     * @param string $content
      */
-    public function setValue(string $value): void
+    public function setContent(string $content): void
     {
-        $this->value = $value;
+        $this->content = $content;
     }
 
     /**
@@ -115,8 +115,8 @@ class Topic {
             $errors['title'] = 'Title is require. Minimum length is 10 character';
         }
 
-        if(mb_strlen(trim($this->value)) < 10) {
-            $errors['value'] = 'Please add some text. Minimum length is 10 character';
+        if(mb_strlen(trim($this->content)) < 10) {
+            $errors['content'] = 'Please add some text. Minimum length is 10 character';
         }
 
         if(!empty($errors)) {
