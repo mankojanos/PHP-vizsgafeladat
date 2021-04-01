@@ -156,3 +156,12 @@ class TopicRest extends MainRest {
         }
     }
 }
+
+$topicRest = new TopicRest();
+$topicRoute = Routing::getCopy();
+$topicRoute->route('GET', '/topic', array($topicRest, 'getTopics'));
+$topicRoute->route('GET', '/topic/$1', array($topicRest, 'readOneTopic'));
+$topicRoute->route('POST', '/topic', array($topicRest, 'topicCreate'));
+$topicRoute->route('PUT', '/topic', array($topicRest, 'editTopic'));
+$topicRoute->route('DELETE', '/topic', array($topicRest, 'deleteTopic'));
+$topicRoute->route('DELETE', '/topic/$1/comment', array($topicRest, 'createComment'));
