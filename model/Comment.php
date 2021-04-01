@@ -14,7 +14,7 @@ class Comment {
      * @param ?User $author
      * @param ?Topic $topic
      */
-    public function __construct(string $id, string $content, ?User $author = null, ?Topic $topic = null)
+    public function __construct(string $id = '', string $content = '', ?User $author = null, ?Topic $topic = null)
     {
         $this->id = $id;
         $this->content = $content;
