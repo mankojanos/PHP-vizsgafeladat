@@ -74,7 +74,7 @@ class Routing {
                         array_push($params, json_decode(file_get_contents('php://input')));
                     }
                     if($this->cors === true) {
-                        header('Acces-Control-Allow-Origin:', $this->allowedOrigin);
+                        header('Access-Control-Allow-Origin:', $this->allowedOrigin);
                     }
                     call_user_func_array($route['action'], $params);
                     return true;
@@ -82,9 +82,9 @@ class Routing {
             }
         }
         if($this->cors) {
-            header('Acces-Control-Allow-Origin:', $this->allowedOrigin);
-            header('Acces-Control-Allow-Headers:', $this->acah);
-            header('Acces-Control-Allow-Methods:', implode(',', $supportedMethods . ',OPTION'));
+            header('Access-Control-Allow-Origin:', $this->allowedOrigin);
+            header('Access-Control-Allow-Headers:', $this->acah);
+            header('Access-Control-Allow-Methods:', implode(',', $supportedMethods) . ',OPTION');
             return true;
         }
         return false;
