@@ -158,4 +158,38 @@ class ViewHandler {
         ob_flush();
     }
 
+    /**
+     * 302 redirect
+     * @param string $controller name of controller
+     * @param string $action name of action
+     * @param string $params optional params
+     */
+    public function redirect(string $controller, string $action, string $params = '') {
+        header("Location: index.php?controller=$controller&action=$action" . isset($params) ? "$params" : '');
+        die();
+    }
+
+    /**
+     * 302 redirect to previous page
+     * @param string $params optional querystring
+     */
+    public function returnToPreviousPage(string $params = '') {
+        header("Location: " . $_SERVER['HTTP_REFERER'] . $params);
+    }
+
+    /**
+     * Singleton for view handler
+     */
+    private static $viewhandler_singleton = NULL;
+    public static function getCopy(): ViewHandler {
+        if(self::$viewhandler_singleton === NULL) {
+            self::$viewhandler_singleton = new ViewHandler();
+        }
+        return self::$viewhandler_singleton;
+    }
 }
+/**
+ * force the first initialization of view handler
+ * (we need puffer and session, when controller does not exist)
+ */
+ViewHandler::getCopy();
