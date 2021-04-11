@@ -68,4 +68,9 @@ class UserController extends MainController {
         $this->view->setVar('user', $user);
         $this->view->render('users', 'signUp');
     }
+
+    public function logOut() {
+        session_destroy();
+        $this->view->redirect('users', 'login');
+    }
 }
