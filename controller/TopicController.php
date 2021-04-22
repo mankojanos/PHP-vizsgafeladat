@@ -81,9 +81,47 @@ class TopicController extends MainController {
      * Topic editing
      * GET request  => render edit page
      * POST request => update in database
+     *
+     * @throws Exception if user missing from session
+     * @throws Exception If topic with this id doesnt exists
+     * @throws Exception If id is missing
+     * @throws Exception If user is not the original author
      */
     public function editTopic() {
+        if(!isset($this->actualUser)) {
+            throw new Exception('user missing from session. Login required');
+        }
 
+        if(!filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) {
+            throw new Exception('topic id is required');
+        }
+        $topicId = filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $topic = $this->topicDbHandler->idBaseSearch($topicId);
+
+        if($topic === null) {
+            throw new Exception('topic with this id doesnt exists: ' . $topicId);
+        }
+
+        if($topic->getAuthor() !== $this->actualUser) {
+            throw new Exception('the actual user is not the original author');
+        }
+
+        if(filter_input(INPUT_POST, 'submit')) {
+            $topic->setTitle(filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS));
+            $topic->setContent(filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS));
+            try{
+                $topic->topicValidate();
+                $this->topicDbHandler->update($topic);
+                $this->view->setMessageSession('topic is updated');
+                $this->view->redirect('topics', 'index');
+            } catch (ValidationException $e) {
+                $this->view->setVar('errors', $e->getErrors());
+            }
+        }
+        $this->view->setVar('topic', $topic);
+        $this->view->render('topics',  'editTopic');
     }
+
+    
 }
 
