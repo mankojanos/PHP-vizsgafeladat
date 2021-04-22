@@ -120,8 +120,10 @@ class TopicController extends MainController {
         }
         $this->view->setVar('topic', $topic);
         $this->view->render('topics',  'editTopic');
+
+        // TODO:: delete
     }
 
-    
+
 }
 
