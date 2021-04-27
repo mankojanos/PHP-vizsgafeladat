@@ -74,7 +74,7 @@ class TopicController extends MainController {
             }
         }
         $this->view->setVar('topic', $topic);
-        $this->view->render('topica', 'topicCreat');
+        $this->view->render('topics', 'topicCreat');
     }
 
     /**
@@ -82,7 +82,7 @@ class TopicController extends MainController {
      * GET request  => render edit page
      * POST request => update in database
      *
-     * @throws Exception if user missing from session
+     * @throws Exception if user is missing from session
      * @throws Exception If topic with this id doesnt exists
      * @throws Exception If id is missing
      * @throws Exception If user is not the original author
@@ -120,10 +120,36 @@ class TopicController extends MainController {
         }
         $this->view->setVar('topic', $topic);
         $this->view->render('topics',  'editTopic');
-
-        // TODO:: delete
     }
 
+    /**
+     * Delete topic
+     * This action use POST request
+     *
+     * @throws Exception If user is missing from session
+     * @throws Exception If id is missing
+     * @throws Exception If topic doesnt exits with this id
+     * @throws Exception If topic author is not the actual user
+     */
+    public function deleteTopic() {
+        if(!isset($this->actualUser)) {
+            throw new Exception('user missing from session. Login required');
+        }
+        if(!filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) {
+            throw new Exception('topic id is required');
+        }
+        $topicId = filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $topic = $this->topicDbHandler->idBaseSearch($topicId);
+        if($topic === null) {
+            throw new Exception('topic with this id doesnt exists: ' . $topicId);
+        }
+        if($topic->getAuthor() !== $this->actualUser) {
+            throw new Exception('the actual user is not the original author');
+        }
 
+        $this->topicDbHandler->delete($topic);
+        $this->view->setMessageSession('Topic delete successful');
+        $this->view->redirect('topics', 'index');
+    }
 }
 
