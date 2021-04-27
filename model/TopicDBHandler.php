@@ -104,6 +104,8 @@ class TopicDBHandler {
      * @throws PDOException if database error
      */
     public function delete(Topic $topic): void {
+        $query = $this->db->prepare("DELETE FROM comments WHERE topic=?");
+        $query->execute(array($topic->getId()));
         $query = $this->db->prepare('DELETE FROM topics WHERE id=?');
         $query->execute(array($topic->getId()));
     }
