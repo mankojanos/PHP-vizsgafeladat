@@ -71,6 +71,6 @@ class UserController extends MainController {
 
     public function logOut() {
         session_destroy();
-        $this->view->redirect('users', 'login');
+        $this->view->redirect('users', 'logout');
     }
 }
