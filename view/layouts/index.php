@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../../global/ViewHandler.php';
 $view = ViewHandler::getCopy();
 ?>
 <!doctype html>
