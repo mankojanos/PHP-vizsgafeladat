@@ -16,18 +16,18 @@ $view->setVar('title', 'topics');
     <?php foreach ($topics as $topic) {?>
         <tr>
             <td>
-                <a href="index.php?controller=topics&action=details&id=<?php $topic->getId(); ?>"><?php echo $topic->getTitle(); ?></a>
+                <a href="index.php?controller=topic&action=details&id=<?php $topic->getId(); ?>"><?php echo $topic->getTitle(); ?></a>
             </td>
             <td>
                 <?php echo $topic->getAuthor()->getUsername(); ?>
             </td>
             <td>
                 <?php if(isset($actualUser) && $actualUser === $topic->getAuthor()->getUsername()) {?>
-                    <form method="post" action="index.php?controller=topics&action=delete">
+                    <form method="post" action="index.php?controller=topic&action=delete">
                         <input type="hidden" name="id" value="<?php echo $topic->getId(); ?>">
                         <input type="submit" value="Delete">
                     </form>
-                    <a href="index.php?controller=topics&action=editTopic&id=<?php echo $topic->getId(); ?>">Update</a>
+                    <a href="index.php?controller=topic&action=editTopic&id=<?php echo $topic->getId(); ?>">Update</a>
                 <?php } ?>
             </td>
 
@@ -37,7 +37,7 @@ $view->setVar('title', 'topics');
 </table>
 <?php
 if(isset($actualUser)) {
-    echo '<a href="index.php?controller=topics&action=topicCreate">Create topic</a>>';
+    echo '<a href="index.php?controller=topic&action=topicCreate">Create topic</a>>';
 }
 ?>
 

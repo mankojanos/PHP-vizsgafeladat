@@ -14,7 +14,7 @@ $actualUser = $view->getVar('actualuser');
 <body>
 <h1>Forum Page</h1>
 <ul>
-    <li><a href="index.php?controller=topics&action=index">Topics</a></li>
+    <li><a href="index.php?controller=topic&action=index">Topics</a></li>
     <?php
     if(isset($actualUser)) {
         echo '<li> Welcome ' . $actualUser .'. <a href="index.php?controller=user&action=logOut">logout</a></li>';

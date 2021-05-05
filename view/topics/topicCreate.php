@@ -8,7 +8,7 @@ $view->setVar('title', 'topic create');
 var_dump($errors);
 ?>
 <h1>Topic create</h1>
-<form method="post" action="index.php?controller=topics&action=topicCreate">
+<form method="post" action="index.php?controller=topic&action=topicCreate">
     <label>Title</label>
     <input type="text" name="title" value="<?php echo $topic->getTitle(); ?>">
     <label>Content</label>

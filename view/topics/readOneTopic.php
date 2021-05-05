@@ -17,7 +17,7 @@ $newComment = $view->getVar('comment');
     <p><?php $comment->getContent(); ?></p>
 <?php }
 if (isset($actualUser)) { ?>
-    <form method="post" action="index.php?controller=comments&action=commentCreate">
+    <form method="post" action="index.php?controller=comment&action=commentCreate">
         <label>Comment</label>
         <input type="hidden" name="id" value="<?php echo $topic->getId(); ?>">
         <textarea name="content"><?php $newComment->getContent() ?></textarea>
