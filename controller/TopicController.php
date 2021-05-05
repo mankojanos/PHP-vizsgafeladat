@@ -92,7 +92,7 @@ class TopicController extends MainController {
             throw new Exception('user missing from session. Login required');
         }
 
-        if(!filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) {
+        if(!filter_var($_REQUEST['id'], FILTER_SANITIZE_SPECIAL_CHARS)) {
             throw new Exception('topic id is required');
         }
         $topicId = filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
