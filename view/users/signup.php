@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../global/ViewHandler.php';
 $view = ViewHandler::getCopy();
 $view->setVar('title', 'Login');
-$errors = $view->getErrors('errors');
+$errors = $view->getVar('errors');
 ?>
 <h1>Sign up to page</h1>
 <?php print_r($errors); ?>
