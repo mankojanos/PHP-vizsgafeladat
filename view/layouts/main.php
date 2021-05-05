@@ -17,9 +17,9 @@ $actualUser = $view->getVar('actualuser');
     <li><a href="index.php?controller=topics&action=index">Topics</a></li>
     <?php
     if(isset($actualUser)) {
-        echo '<li> Welcome ' . $actualUser .'. <a href="index.php?controller=users&action=logOut">logout</a></li>';
+        echo '<li> Welcome ' . $actualUser .'. <a href="index.php?controller=user&action=logOut">logout</a></li>';
     } else {
-        echo '<li><a href="index.php?controller=users&action=login">Login</a></li>';
+        echo '<li><a href="index.php?controller=user&action=login">Login</a></li>';
     }
     ?>
 </ul>
