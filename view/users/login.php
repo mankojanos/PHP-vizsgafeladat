@@ -15,7 +15,7 @@ $errors = $view->getVar('errors');
 </form>
 
 <p>
-    <a href="index.php?controller=user&action=signUp">Sign up</a>
+    <a href="index.php?controller=user&action=signup">Sign Up</a>
 </p>
 
 <?php
