@@ -11,11 +11,11 @@ $errors = $view->getVar('errors');
     <input type="text" name="username">
     <label for="passwd">Password:</label>
     <input type="password" name="passwd">
-    <input type="submit" name="submit" value="Login">
+    <input type="submit" name="submit" value="Sign up">
 </form>
 
 <p>
-    <a href="index.php?controller=user&action=signUp">Sign up</a>
+    <a href="index.php?controller=user&action=login">Log in</a>
 </p>
 
 <?php
