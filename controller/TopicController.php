@@ -74,7 +74,7 @@ class TopicController extends MainController {
             }
         }
         $this->view->setVar('topic', $topic);
-        $this->view->render('topics', 'topicCreat');
+        $this->view->render('topics', 'topicCreate');
     }
 
     /**
