@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../global/ViewHandler.php';
 $view = ViewHandler::getCopy();
 $topic = $view->getVar('topic');
 $errors = $view->getVar('errors');
-$view->setVar('title', 'topic create');
+$view->setVar('title', 'topicCreate');
 
 var_dump($errors);
 ?>
