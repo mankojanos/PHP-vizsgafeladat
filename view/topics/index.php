@@ -3,7 +3,7 @@ require_once __DIR__ . '/../../global/ViewHandler.php';
 $view = ViewHandler::getCopy();
 
 $topics = $view->getVar('topics');
-$actualUser = $view->getVar('actualUser');
+$actualUser = $view->getVar('actual_user');
 $view->setVar('title', 'topics');
 ?>
 <h1>Topics</h1>
