@@ -1,6 +1,6 @@
 <?php
 $view = ViewHandler::getCopy();
-$actualUser = $view->getVar('actualuser');
+$actualUser = $view->getVar('actual_user');
 ?>
 <!doctype html>
 <html lang="en">
