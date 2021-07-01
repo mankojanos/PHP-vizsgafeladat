@@ -16,7 +16,7 @@ $view->setVar('title', 'topics');
     <?php foreach ($topics as $topic) {?>
         <tr>
             <td>
-                <a href="index.php?controller=topic&action=details&id=<?php $topic->getId(); ?>"><?php echo $topic->getTitle(); ?></a>
+                <a href="index.php?controller=topic&action=readOneTopic&id=<?php echo $topic->getId(); ?>"><?php echo $topic->getTitle(); ?></a>
             </td>
             <td>
                 <?php echo $topic->getAuthor()->getUsername(); ?>

@@ -33,7 +33,7 @@ class TopicController extends MainController {
      * After GET request show one topic
      * @throws Exception if topic doesnt exists
      */
-    public function topicDetails() {
+    public function readOneTopic() {
         if(!filter_input(INPUT_GET, 'id')) {
             throw new Exception('ID is required');
         }
@@ -45,7 +45,7 @@ class TopicController extends MainController {
             $this->view->setVar('topic', $topic);
             $comment = $this->view->getVar('comment');
             $this->view->setVar('comment', ($comment === null) ? new Comment() : $comment);
-            $this->view->render('topics', 'details');
+            $this->view->render('topics', 'readOneTopic');
     }
 
     /**
@@ -95,7 +95,7 @@ class TopicController extends MainController {
         if(!filter_var($_REQUEST['id'], FILTER_SANITIZE_SPECIAL_CHARS)) {
             throw new Exception('topic id is required');
         }
-        $topicId = filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $topicId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
         $topic = $this->topicDbHandler->idBaseSearch($topicId);
 
         if($topic === null) {
@@ -131,19 +131,19 @@ class TopicController extends MainController {
      * @throws Exception If topic doesnt exits with this id
      * @throws Exception If topic author is not the actual user
      */
-    public function deleteTopic() {
+    public function delete() {
         if(!isset($this->actualUser)) {
             throw new Exception('user missing from session. Login required');
         }
-        if(!filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) {
+        if(!filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS)) {
             throw new Exception('topic id is required');
         }
-        $topicId = filter_input(INPUT_REQUEST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+        $topicId = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
         $topic = $this->topicDbHandler->idBaseSearch($topicId);
         if($topic === null) {
             throw new Exception('topic with this id doesnt exists: ' . $topicId);
         }
-        if($topic->getAuthor() !== $this->actualUser) {
+        if($topic->getAuthor() != $this->actualUser) {
             throw new Exception('the actual user is not the original author');
         }
 

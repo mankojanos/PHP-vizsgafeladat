@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '../../global/ViewHandler.php';
+require_once __DIR__ . '/../../global/ViewHandler.php';
 $view = ViewHandler::getCopy();
 $topic = $view->getVar('topic');
 $errors = $view->getVar('errors');
